@@ -1,29 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 
 
 int rand_move(int k){
+
 srand(time(NULL));
+
 int r = rand() % (3-1) + 1;
 
-if(r != k){
-return r + k-k;
-}
+return r;
 
-else return rand_move(k-1);
 }
 
 
 int check_win(int l){
 //0 for lose
 //1 for win
+//2 for draw
 
 if(l==1 && rand_move(l)==2){
 return 0;
 }
 
-else if(l==1 && rand_move(l) !=2){
+else if(l==1 && rand_move(l) ==3){
 return 1;
 }
 
@@ -31,7 +32,7 @@ else if(l==2 && rand_move(l) ==3){
 return 0;
 }
 
-else if(l==2 && rand_move(l) !=3){
+else if(l==2 && rand_move(l) ==1){
 return 1;
 }
 
@@ -39,8 +40,12 @@ else if(l==3 && rand_move(l) ==1){
 return 0;
 }
 
-else if(l==3 && rand_move(l) !=1){
+else if(l==3 && rand_move(l) ==2){
 return 1;
+}
+
+else if(l == rand_move(l)){
+return 2;
 }
 
 }
@@ -53,9 +58,9 @@ char Scissors[] = u8"✂️";
 
 printf("Rock Paper Scissors\n\n\n");
 
-//0 Rock
-//1 Paper
-//2 Scissors
+//1 Rock
+//2 Paper
+//3 Scissors
 
 int move;
 
@@ -103,7 +108,11 @@ printf("\n\nCongratulations!! You won the game.\n");
 }
 
 else if(check_win(move)==0){
-printf("\nYou Lost the game.\n");
+printf("\n\nYou Lost the game.\n");
+}
+
+else if(check_win(move)==2){
+printf("\n\nIt's a Draw!\n");
 }
 
 printf("Thank you for playing.\n");
